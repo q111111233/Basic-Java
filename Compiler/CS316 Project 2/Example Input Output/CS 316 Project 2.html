@@ -1,0 +1,231 @@
+
+<!-- saved from url=(0049)http://picasso.cs.qc.cuny.edu/cs316/316proj2.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></head><body>
+
+<title>
+CS 316 Project 2
+</title>
+
+<b>
+CS 316 &nbsp;&nbsp; Spring 2014
+</b>
+
+<br>
+All projects in this course must be completed <b>individually and independently</b>.
+<br>
+All programs must be written in Oracle Standard Edition compliant Java or ANSI/ISO standard compliant C++.
+
+<hr align="center">
+
+<b>
+PROJECT 2: Top-Down Parser 
+<br>
+Due: 04/06/14, Sunday, 11 PM
+<br>
+Late projects will not be accepted.
+</b>
+
+<br><br>
+
+This project is a continuation of Project 1.
+You will implement a top-down parser for the following EBNF
+for a sublanguage of the Scheme language (which is a dialect of LISP):
+
+<br><br>
+  &#10216;fun def list&#10217; &#8594; &#10216;fun def&#10217; | &#10216;fun def&#10217; &#10216;fun def list&#10217;
+<br>
+  &#10216;fun def&#10217; &#8594; "(" "define" &#10216;header&#10217; &#10216;exp&#10217; ")"
+<br>
+  &#10216;header&#10217; &#8594; "(" &#10216;fun name&#10217; &#10216;parameter list&#10217; ")"
+<br>
+  &#10216;fun name&#10217; &#8594; &#10216;id&#10217;
+<br>
+  &#10216;parameter list&#10217; &#8594; &#949; | &#10216;id&#10217; &#10216;parameter list&#10217;
+<br>
+  &#10216;exp&#10217; &#8594; &#10216;id&#10217; | &#10216;int&#10217; | &#10216;float&#10217; | &#10216;floatE&#10217; | "false" | "true" |
+                         &#10216;list exp&#10217;
+<br>
+  &#10216;list exp&#10217; &#8594; "(" &#10216;list exp inside&#10217; ")"
+<br>
+  &#10216;list exp inside&#10217; &#8594; 
+    &#10216;if&#10217; | 
+    &#10216;cond&#10217; | 
+    &#10216;fun call&#10217; |
+    &#10216;arith expr&#10217; |
+    &#10216;bool expr&#10217; |
+    &#10216;comp expr&#10217;
+<br>
+  &#10216;if&#10217; &#8594; "if" &#10216;exp&#10217; &#10216;exp&#10217; &#10216;exp&#10217;
+<br>
+  &#10216;cond&#10217; &#8594; "cond" &#10216;case list&#10217;
+<br>
+  &#10216;case list&#10217; &#8594; &#10216;case exp&#10217; | &#10216;case exp&#10217; &#10216;case list&#10217;
+<br>
+  &#10216;case exp&#10217; &#8594; "(" ( &#10216;exp&#10217; &#10216;exp&#10217; | "else" &#10216;exp&#10217; ) ")"
+<br>
+  &#10216;fun call&#10217; &#8594; &#10216;fun name&#10217; &#10216;exp list&#10217;
+<br>
+  &#10216;arith expr&#10217; &#8594; + &#10216;exp list&#10217; | * &#10216;exp list&#10217; |
+                                &#8722; &#10216;exp list1&#10217; | / &#10216;exp list1&#10217;
+<br>
+  &#10216;bool expr&#10217; &#8594; "and" &#10216;exp list&#10217; | "or" &#10216;exp list&#10217; |
+                                "not" &#10216;exp&#10217;
+<br>
+  &#10216;comp expr&#10217; &#8594; "&lt;" &#10216;exp list&#10217; | "&lt;=" &#10216;exp list&#10217; |
+                                "&gt;" &#10216;exp list&#10217; | "&gt;=" &#10216;exp list&#10217; | "=" &#10216;exp list&#10217;
+<br>
+  &#10216;exp list&#10217; &#8594; &#949; | &#10216;exp&#10217; &#10216;exp list&#10217;
+<br>
+  &#10216;exp list1&#10217; &#8594; &#10216;exp&#10217; | &#10216;exp&#10217; &#10216;exp list1&#10217;
+
+<br><br>
+
+NOTE: &#949; stands for the empty string.
+
+<br><br>
+
+This grammar defines all iterations by right-recursive production rules to
+make the construction of explicit parse trees relatively uniform and straightforward. 
+
+<br><br>
+
+A lexical analyzer for this language's tokens has been implemented in Project 1.
+
+<br><br>
+
+Your program will read any text file that contains (what is intended to be)
+a string in the category &lt;fun def list&gt;.
+It will then construct an <b>explicit parse tree</b> and display it in 
+<a href="http://picasso.cs.qc.cuny.edu/cs316/IndentedForm.html">linearly indented form</a>:
+each syntactic category name labeling a node in the parse tree is
+displayed on a separate line, prefixed with the integer <em>i</em> representing
+the node's depth and indented by <em>i</em> blanks.
+This is a basic form of syntax profiler.
+
+<br><br>
+
+<b>Explicit parse trees are to be constructed by class objects using the method described in lecture</b>.
+The categories &#10216;fun def list&#10217;, &#10216;parameter list&#10217;, &#10216;case list&#10217;,
+&#10216;exp list&#10217;, &#10216;exp list1&#10217;
+have a linear list structure defined by the right-recursive patters:
+
+<blockquote>
+&#10216;X list&#10217; &#8594; &#10216;Y&#10217; | &#10216;Y&#10217; &#10216;X list&#10217;
+<br>
+&#10216;X list&#10217; &#8594; &#949; | &#10216;Y&#10217; &#10216;X list&#10217;
+</blockquote>
+
+The following recursive class schema is suggested to implement parse trees for &#10216;X list&#10217;:
+
+<pre>class XList
+{
+	Y &nbsp; y;
+	Xlist &nbsp; xlist;
+}
+</pre>
+
+The <i>null</i> value is used to represent &#949; and the end of the list.
+For the other production rules with alternatives:
+
+<br><br>
+
+&nbsp;&nbsp;  &lt;X&gt; &#8594; &#945;<sub>1</sub> | ··· | &#945;<sub>n</sub>,
+&nbsp;&nbsp;  n &#8805; 2
+<br><br>
+
+the class for &lt;X&gt; is <i>abstract</i> and the classes for &#945;<sub>i</sub> are subclasses of it.
+Class fields represent sub parse trees.
+Parse trees should be displayed by functions in these classes.
+You may build your parser based on
+<a href="http://picasso.cs.qc.cuny.edu/cs316/parseArithWithTree/classList.html">this sample parser</a>;
+in this project, you may ignore the classes <i>Interpreter</i>, <i>Compiler</i>, <i>Val</i> and
+the functions <i>M</i>, <i>Eval</i>, <i>emitInstructions</i>.
+
+<br><br>
+
+An appropriate error message should be issued when the first syntax error is found;
+in this project there is no need to recover from it and continue parsing.
+(Real-world compilers do some type of syntax-error recovery and attempt to find more syntax errors.)
+
+<br><br>
+  
+The I/O file names should be entered interactively from the terminal or
+as external arguments for the main() function;
+use a simple, standard file I/O method that works on any OS and in any
+program development environment.
+
+<br><br>
+
+If your Project 1 lexical analyzer wasn't correct, you may use this
+sample lexical analyzer:
+<a href="http://picasso.cs.qc.cuny.edu/cs316/LexAnalyzer.java">LexAnalyzer.java</a>.
+
+<br><br>
+
+Here's a sample set of test input files:
+
+<blockquote>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in1.txt">in1</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out1.txt">out1</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in2.txt">in2</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out2.txt">out2</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in3.txt">in3</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out3.txt">out3</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in4.txt">in4</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out4.txt">out4</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in5.txt">in5</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out5.txt">out5</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in6.txt">in6</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out6.txt">out6</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in7.txt">in7</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out7.txt">out7</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in8.txt">in8</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out8.txt">out8</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in9.txt">in9</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out9.txt">out9</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in10.txt">in10</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out10.txt">out10</a>
+<br>
+<a href="http://picasso.cs.qc.cuny.edu/cs316/p2-in11.txt">in11</a> | <a href="http://picasso.cs.qc.cuny.edu/cs316/p2-out11.txt">out11</a>
+</blockquote>
+
+You should make your own additional input files to test the program.
+Your outputs don't have to be identical to the samples, but should
+display the parse tree structure clearly.  
+
+<br><br>
+
+<b>Submission</b>
+<br><br>
+
+Email the following materials to yukawa@cs.qc.cuny.edu with the subject header:
+
+<br><br>
+
+CS 316, Project 2, your full name
+
+<ul>
+<li>
+All the classes comprising your source code, including the lexical analyzer you used.
+Since there will be many classes,
+<b>make sure to double check no classes are missing in your submission</b>.
+</li><li>
+A list of all class names arranged like
+<a href="http://picasso.cs.qc.cuny.edu/cs316/parseArithWithTree/classList.html">this page</a>.
+This may be in text, HTML, PDF, or WORD file.
+</li><li>
+Concise instructions for how to compile and run your program and how to handle input/output files.
+</li></ul>
+
+You may email the entire materials in a .zip or .rar compressed file.
+
+<br><br>
+
+The due date is 04/06/14, Sunday, 11 PM.
+No late projects will be accepted.
+If you haven't been able to complete the project, you may send an incomplete program for partial credit.
+In this case, include a description of what is and is not working in your program along with what you
+believe to be the sources of the problems.
+
+
+
+</body></html>

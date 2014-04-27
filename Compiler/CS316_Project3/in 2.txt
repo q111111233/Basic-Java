@@ -1,0 +1,3 @@
+(define (b1) (and))
+
+(define (b7) (and (b1)))

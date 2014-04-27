@@ -1,0 +1,168 @@
+0 <fun def>
+ 1 <header>
+  2 <fun name> test
+   3 <parameter list>
+    4 a1
+    4 a2
+    4 a3
+    4 x1
+    4 x2
+    4 x3
+ 1 <exp>
+  2 <list exp>
+   3 cond
+   3 <case list>
+    4 <case exp>
+     5 <exp>
+      6 <list exp>
+       7 <comp expr>
+        8 <
+        8 <exp>
+         9 a1
+        8 <exp>
+         9 a2
+     5 <exp>
+      6 <list exp>
+       7 <arith expr>
+        8 +
+        8 <exp>
+         9 123
+        8 <exp>
+         9 -76
+    4 <case exp>
+     5 <exp>
+      6 <list exp>
+       7 <bool expr>
+        8 and
+        8 <exp>
+         9 <list exp>
+          10 <comp expr>
+           11 <=
+           11 <exp>
+            12 x1
+           11 <exp>
+            12 x3
+        8 <exp>
+         9 <list exp>
+          10 <comp expr>
+           11 >
+           11 <exp>
+            12 a3
+           11 <exp>
+            12 a1
+     5 <exp>
+      6 <list exp>
+       7 <arith expr>
+        8 *
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 /
+           11 <exp>
+            12 7.0
+           11 <exp>
+            12 0.78
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 -
+           11 <exp>
+            12 54.0
+           11 <exp>
+            12 -0.123
+    4 <case exp>
+     5 <exp>
+      6 <list exp>
+       7 <bool expr>
+        8 or
+        8 <exp>
+         9 <list exp>
+          10 <comp expr>
+           11 <
+           11 <exp>
+            12 x1
+           11 <exp>
+            12 x3
+        8 <exp>
+         9 <list exp>
+          10 <comp expr>
+           11 >=
+           11 <exp>
+            12 a3
+           11 <exp>
+            12 a1
+     5 <exp>
+      6 <list exp>
+       7 <arith expr>
+        8 *
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 /
+           11 <exp>
+            12 87.54
+           11 <exp>
+            12 500000.0
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 -
+           11 <exp>
+            12 7.0E15
+           11 <exp>
+            12 -8.754E-22
+    4 <case exp>
+     5 <exp>
+      6 <list exp>
+       7 <bool expr>
+        8 not
+        8 <exp>
+         9 <list exp>
+          10 <comp expr>
+           11 =
+           11 <exp>
+            12 x1
+           11 <exp>
+            12 x3
+     5 <exp>
+      6 <list exp>
+       7 <arith expr>
+        8 +
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 /
+           11 <exp>
+            12 8.754E-8
+           11 <exp>
+            12 500000.0
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 -
+           11 <exp>
+            12 -7.0E-12
+           11 <exp>
+            12 8.7101E24
+    4 <case exp>
+     5 else
+     5 <exp>
+      6 <list exp>
+       7 <arith expr>
+        8 +
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 /
+           11 <exp>
+            12 -8.754E-8
+           11 <exp>
+            12 500000.0
+        8 <exp>
+         9 <list exp>
+          10 <arith expr>
+           11 -
+           11 <exp>
+            12 -7.0
+           11 <exp>
+            12 8.7E24
