@@ -30,10 +30,9 @@ class And extends BoolExpr
 			
 			Class eClass = e.getClass();
 			
-			
-			if ( eClass != BoolVal.class )
+			if (eClass != BoolVal.class)
 			{
-				return null;
+				return new ErrVal ("Error: - operator cannot be applied to non-boolean: " + e.toString());
 			}
 			else // termClass == FloatVal.class
 			{

@@ -20,4 +20,23 @@ class Case extends CaseExp
 		exp1.printParseTree(indent1);
 		exp2.printParseTree(indent1);
 	}
+
+	@Override
+	Val Eval(HashMap<String, Val> state) 
+	{
+		Val v1 = exp1.Eval(state);
+		if (v1.getClass() != BoolVal.class)
+		{
+			return new ErrVal ("Error: boolean condition of \"cond\" evaluated to non-boolean value: " + v1.toString());
+		}
+		
+		if ( ((BoolVal)v1).val)
+		{
+			return exp2.Eval(state);
+		}
+		else
+		{
+			return null;
+		}
+	}
 }

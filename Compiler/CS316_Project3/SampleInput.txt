@@ -1,0 +1,95 @@
+(define (a1) (+))
+
+(define (a2) (+ 1))
+
+(define (a3) (+ 1 2))
+
+(define (a4) (+ 1 2 3))
+
+(define (a5) (+ 1 2 3 4 5))
+
+(define (a6) (+ 1 2.e2 3))
+
+(define (a7) (+ 1.8 2 3 4 3.5E-2))
+
+(define (a8) (- 1))
+
+(define (a9) (- 1 2))
+
+(define (a10) (- 1 2 3))
+
+(define (a11) (- 1 2 3 4 5))
+
+(define (a12) (- 1 2.e2 3))
+
+(define (a13) (- 1.8 2 3 4 3.5E-2))
+
+(define (a14) (+ 1 2 3 (b2) 5))
+
+(define (b1) (and))
+
+(define (b2) (and true))
+
+(define (b3) (and true false))
+
+(define (b4) (and false true false))
+
+(define (b5) (and true true true true))
+
+(define (b6) (and (or true false) (not false)))
+
+(define (b7) (and (b1) (b2) (b6)))
+
+(define (b8) (or))
+
+(define (b9) (or true))
+
+(define (b10) (or true false))
+
+(define (b11) (or false false false))
+
+(define (b12) (or true true true true))
+
+(define (b13) (or (or true false) (not false)))
+
+(define (b14) (not (or (b1) (b2) (b6))))
+
+(define (b15) (and (b1) (b2) (a6)))
+
+(define (c1) (<))
+
+(define (c2) (< 1))
+
+(define (c3) (< 1 2))
+
+(define (c4) (< 1 2 3 4.0 5))
+
+(define (c5) (=))
+
+(define (c6) (= 1))
+
+(define (c7) (= 1 2))
+
+(define (c8) (= 5 5 5 5 5))
+
+(define (c9) (< 1 2 (c4) 4.0 5))
+
+(define (d1) (if (b14) (a12) (b5)))
+
+(define (d2) (if (c7) (c8) (a2)))
+
+(define (d3) (cond ((b6) (a5))
+                   ((c7) (b8))
+                   (else (d2))
+             )
+)
+
+(define (d4) (if (a5) (a12) (b5)))
+
+(define (d5) (cond ((a13) (a5))
+                   ((c7) (b8))
+                   (else (d2))
+             )
+)
+
+(define (e1) (+ 1 2 (z)))

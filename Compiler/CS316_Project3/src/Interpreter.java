@@ -5,8 +5,7 @@ public abstract class Interpreter extends Parser
 {
 	public static LinkedHashMap<String, Val> varState = new LinkedHashMap<String, Val>(); 
 	// program state, i.e., virtual memory for variables
-
-
+	
 	public static void main(String argv[])
 	{
 		// argv[0]: input file containing the source code of an assignment list
@@ -20,14 +19,14 @@ public abstract class Interpreter extends Parser
 			displayln(t + "  -- unexpected symbol");
 		else if ( ! syntaxErrorFound )
 		{
-			funDefList.printParseTree("");
+			//funDefList.printParseTree("");
 			funDefList.M(varState);
 			
 			
 			Set<String> key = varState.keySet();
 			for (String k:key)
 			{
-				System.out.println(k + "\n" + varState.get(k) + '\n');
+				displayln(k+'\n'+varState.get(k)+'\n');
 			}
 
 		}

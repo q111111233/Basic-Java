@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -82,7 +83,11 @@ public class RMI_BioAPI_Demo
 			pw.close();
 			socket.close();
 		}
-		catch(IOException e) 
+		catch(FileNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}

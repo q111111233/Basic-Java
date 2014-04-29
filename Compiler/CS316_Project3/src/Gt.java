@@ -23,37 +23,50 @@ class Gt extends CompExpr
 	{
 		//Make it work like a like list.
 		ExpList t = expList;
-		Val e = null;
+		Val i = null;
 		if (t != null)
 		{
-			e = t.exp.Eval(state);
+			i = t.exp.Eval(state);
 			t = t.expList;
+			if ( i.getClass() == ErrVal.class)
+			{
+				return i ;
+			}
+			if (i.getClass() == BoolVal.class) 
+			{
+				return new ErrVal ("> operator cannot be applied to non-number: " + i.toString());
+			}
 		}
 		
 		while (t!= null)
 		{
-			Val i = t.exp.Eval(state);
+			Val e = t.exp.Eval(state);
 
 			Class eClass = e.getClass();
 			Class iClass = i.getClass();
 
+			if (e.getClass() == BoolVal.class) 
+			{
+				return new ErrVal ("> operator cannot be applied to non-number: " + e.toString());
+			}
+			
 			if ( iClass == IntVal.class && eClass == IntVal.class )
 			{
-				if (((IntVal)i).val < ((IntVal)e).val)
+				if (((IntVal)i).val > ((IntVal)e).val)
 				{
 					return new BoolVal (false);
 				}
 			}
 			else if ( iClass == IntVal.class ) // eClass == FloatVal.class
 			{
-				if (((IntVal)i).val <  ((FloatVal)e).val)
+				if (((IntVal)i).val >  ((FloatVal)e).val)
 				{
 					return new BoolVal (false);
 				}
 			}
 			else // termClass == FloatVal.class
 			{
-				if (((FloatVal)i).val <  ((FloatVal)e).val)
+				if (((FloatVal)i).val >  ((FloatVal)e).val)
 				{
 					return new BoolVal (false);
 				}

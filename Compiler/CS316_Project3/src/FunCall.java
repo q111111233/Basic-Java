@@ -26,7 +26,13 @@ class FunCall extends ListExp
 	
 	Val Eval(HashMap<String, Val> state) 
 	{
-		//Make it work like a like list.		
-		return state.get(funName);	 
+		if (Parser.expData.get(funName) == null)
+		{
+			return new ErrVal("Error: undefined function: " + funName);
+		}
+		else
+		{
+			return Parser.expData.get(funName).Eval(state);	 
+		}
 	}
 }

@@ -16,7 +16,7 @@ import java.rmi.Naming;
 
 public class RMI_BioAPI_Demo {
 
-	private String socket_listener_ip = "localhost";
+	private static String socket_listener_ip = "localhost";
 	private static String clientFile;
 	// socket_listener_ip of socket server at DSP machine
 	////	private String socket_listener_ip = "<whatever IP it should be>";
@@ -107,7 +107,6 @@ public class RMI_BioAPI_Demo {
 			pw.println("StartXfer");
 			String line = brf.readLine();
 			while ( line != null){
-				System.out.println(line);
 				pw.println(line);
 				line = brf.readLine();
 			}
@@ -153,7 +152,7 @@ public class RMI_BioAPI_Demo {
 
 	public static void main(String[] args) throws Exception 
 	{
-		if (args.length != 5)
+		if (args.length != 6)
 		{
 			System.out.println
 			("Syntax - java RMI_BioAPI_Demo <local_Filename> <host_port> <Remote_AsteriskJava_IP> <service_UID> <remote_source_Filename>");
@@ -162,6 +161,7 @@ public class RMI_BioAPI_Demo {
 
 
 		// Create an instance of our service server ...
+		socket_listener_ip = args[5];
 		clientFile = args[4];
 		RMI_BioAPI_Demo demo_instance = new RMI_BioAPI_Demo(args[0], Integer.parseInt(args[1]), args[2], args[3], args[4]);
 

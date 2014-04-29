@@ -28,9 +28,13 @@ class Add extends ArithExpr
 		while (t!= null)
 		{
 			Val e = t.exp.Eval(state);
-			
 			Class eClass = e.getClass();
 			Class iClass = i.getClass();
+			
+			if (eClass != IntVal.class && eClass != FloatVal.class)
+			{
+				return e;
+			}
 			
 			if ( iClass == IntVal.class && eClass == IntVal.class )
 			{

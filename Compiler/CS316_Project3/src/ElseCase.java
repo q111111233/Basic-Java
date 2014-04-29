@@ -18,4 +18,12 @@ class ElseCase extends CaseExp
 		LexAnalyzer.displayln(indent1 + indent1.length() + " else");
 		exp.printParseTree(indent1);
 	}
+
+	@Override
+	Val Eval(HashMap<String, Val> state) 
+	{
+		return exp.Eval(state);
+	}
+	
+	
 }

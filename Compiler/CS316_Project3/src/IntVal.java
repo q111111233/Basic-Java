@@ -21,7 +21,7 @@ class IntVal extends Val
 	{
 		return (float)val;
 	}
-	
+	// Do we need this?
 	boolean isZero()
 	{
 		return val == 0;

@@ -6,4 +6,6 @@ abstract class CaseExp
 	{
 		LexAnalyzer.displayln(indent + indent.length() + " <case exp>");
 	}
+
+	abstract Val Eval(HashMap<String, Val> state) ;
 }

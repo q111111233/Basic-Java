@@ -23,8 +23,7 @@ class Cond extends ListExp
 
 	Val Eval(HashMap<String, Val> state) 
 	{
-
-		return null;
+		return caseList.Eval(state);
 	}
 
 

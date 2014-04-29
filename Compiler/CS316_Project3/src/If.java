@@ -27,7 +27,19 @@ class If extends ListExp
 	
 	Val Eval(HashMap<String, Val> state) 
 	{
-		return null;
+		Val v1 = this.exp1.Eval(state);
+		if (v1.getClass() != BoolVal.class)
+		{
+			return new ErrVal ("Error: boolean condition of \"if\" evaluated to non-boolean value:condition " + v1.toString());
+		}
+		else if (((BoolVal)v1).val == true)
+		{
+			return exp2.Eval(state);
+		}
+		else
+		{
+			return exp3.Eval(state);
+		}
 	
 	}
 }

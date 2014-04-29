@@ -47,9 +47,10 @@ public abstract class Parser extends LexAnalyzer
 {
 	static False false_ = new False();
 	static True true_  = new True();
-
+	public static LinkedHashMap<String, Exp> expData = new LinkedHashMap<String, Exp>(); 
+	
 	static boolean syntaxErrorFound = false;
-
+	
  
 	public static FunDefList funDefList()
 	
@@ -80,7 +81,7 @@ public abstract class Parser extends LexAnalyzer
 				getToken();
 				Header header = header();
 				Exp exp = exp();
-
+				expData.put(header.funName, exp);
 				if ( state == State.RParen )
 				{
 					getToken();

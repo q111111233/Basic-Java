@@ -28,6 +28,14 @@ class Le extends CompExpr
 		{
 			i = t.exp.Eval(state);
 			t = t.expList;
+			if ( i.getClass() == ErrVal.class)
+			{
+				return i ;
+			}
+			if (i.getClass() == BoolVal.class) 
+			{
+				return new ErrVal ("<= operator cannot be applied to non-number: " + i.toString());
+			}
 		}
 		
 		while (t!= null)
@@ -37,6 +45,11 @@ class Le extends CompExpr
 			Class eClass = e.getClass();
 			Class iClass = i.getClass();
 
+			if (e.getClass() == BoolVal.class) 
+			{
+				return new ErrVal ("<= operator cannot be applied to non-number: " + e.toString());
+			}
+			
 			if ( iClass == IntVal.class && eClass == IntVal.class )
 			{
 				if (((IntVal)i).val  >= ((IntVal)e).val)

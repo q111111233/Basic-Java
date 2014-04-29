@@ -27,13 +27,14 @@ implements RMI_BioAPI_AsteriskJava_Interface {
 	{
 		// TODO Auto-generated method stub
 		Socket soc = null;
+		PrintWriter pw= null;
 		try {
 			soc = new Socket (socket_ip, socket_port);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		PrintWriter pw=null;
+		
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new InputStreamReader(soc.getInputStream()));
@@ -51,7 +52,7 @@ implements RMI_BioAPI_AsteriskJava_Interface {
 					line = br.readLine();
 
 			}
-			
+			pw = new PrintWriter (new File (remote_fileName));
 			
 			while (true)
 			{
@@ -60,8 +61,10 @@ implements RMI_BioAPI_AsteriskJava_Interface {
 				{
 					break;
 				}
-				System.out.println(line);
+				pw.println(line);
 			}
+			pw.close();
+			soc.close();
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
